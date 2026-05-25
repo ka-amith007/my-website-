@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Amith K G — Software Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{
+  --bg:#ffffff;--bg2:#f8fafc;--bg3:#f1f5f9;
+  --text:#0f172a;--text2:#64748b;
+  --accent:#0ea5e9;--accent2:#0284c7;
+  --border:#e2e8f0;--card:#ffffff;--dark:#0f172a;
+  --radius:16px;
+  --shadow:0 1px 4px rgba(0,0,0,0.06),0 4px 16px rgba(0,0,0,0.06);
+  --shadow-hover:0 8px 32px rgba(0,0,0,0.13);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;}
+
+/* CURSOR */
+#cursor{width:10px;height:10px;background:var(--accent);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);}
+#cursor-ring{width:34px;height:34px;border:2px solid rgba(14,165,233,0.4);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:left 0.13s ease,top 0.13s ease;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.94);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color 0.3s;padding:0 5%;}
+nav.scrolled{border-bottom-color:var(--border);}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:68px;}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-0.5px;}
+.nav-logo span{color:var(--accent);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{text-decoration:none;color:var(--text2);font-size:0.88rem;font-weight:500;transition:color 0.2s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width 0.2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-links a:hover::after{width:100%;}
+.nav-resume{background:var(--dark);color:#fff;padding:0.48rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:600;text-decoration:none;transition:opacity 0.2s;}
+.nav-resume:hover{opacity:0.82;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text);border-radius:2px;}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);padding:1.5rem 5%;z-index:999;}
+.mobile-menu.open{display:block;}
+.mobile-menu a{display:block;padding:0.75rem 0;color:var(--text);text-decoration:none;font-weight:500;border-bottom:1px solid var(--border);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:100px 5% 60px;background:radial-gradient(ellipse 70% 60% at 70% 50%,rgba(14,165,233,0.06) 0%,transparent 70%);}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;background:var(--bg3);border:1px solid var(--border);padding:0.38rem 1rem;border-radius:50px;font-size:0.8rem;font-weight:700;color:var(--accent);margin-bottom:1.6rem;letter-spacing:0.5px;}
+.hero-tag::before{content:'✦';font-size:0.7rem;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,4.5vw,3.8rem);font-weight:900;line-height:1.12;color:var(--text);letter-spacing:-1.5px;margin-bottom:1rem;}
+.hero h1 span{color:var(--accent);}
+.hero-role{font-size:0.98rem;color:var(--text2);font-weight:500;margin-bottom:1.4rem;}
+.hero-bio{font-size:1rem;color:var(--text2);line-height:1.75;margin-bottom:2rem;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.8rem;}
+.btn-primary{background:var(--dark);color:#fff;padding:0.7rem 1.8rem;border-radius:50px;font-size:0.92rem;font-weight:600;text-decoration:none;transition:all 0.2s;border:2px solid var(--dark);}
+.btn-primary:hover{background:#1e293b;}
+.btn-outline{background:transparent;color:var(--dark);padding:0.7rem 1.8rem;border-radius:50px;font-size:0.92rem;font-weight:600;text-decoration:none;transition:all 0.2s;border:2px solid var(--dark);}
+.btn-outline:hover{background:var(--bg3);}
+.hero-socials{display:flex;gap:0.8rem;margin-bottom:2rem;}
+.hero-socials a{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text2);text-decoration:none;transition:all 0.2s;font-size:0.95rem;}
+.hero-socials a:hover{border-color:var(--accent);color:var(--accent);}
+.hero-stats{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.hero-stat{background:var(--bg3);border:1px solid var(--border);padding:0.55rem 1.3rem;border-radius:50px;font-size:0.86rem;font-weight:600;color:var(--text);}
+.hero-stat span{color:var(--accent);}
+.hero-image-wrap{display:flex;justify-content:center;align-items:center;}
+.profile-img-container{position:relative;width:340px;height:340px;}
+.profile-img-container::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:3px solid var(--accent);opacity:0.3;animation:ring-pulse 3s ease-in-out infinite;}
+.profile-img-container::after{content:'';position:absolute;inset:-18px;border-radius:50%;border:1px solid var(--accent);opacity:0.15;animation:ring-pulse 3s ease-in-out infinite 0.5s;}
+@keyframes ring-pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.04);opacity:0.15;}}
+.profile-img{width:340px;height:340px;border-radius:50%;object-fit:cover;object-position:top center;border:4px solid #fff;box-shadow:0 0 0 3px var(--accent),0 20px 60px rgba(14,165,233,0.2);position:relative;z-index:1;}
+.profile-badge{position:absolute;bottom:20px;right:-10px;z-index:2;background:#fff;border:1px solid var(--border);border-radius:50px;padding:0.5rem 1rem;font-size:0.78rem;font-weight:700;color:var(--text);box-shadow:var(--shadow);display:flex;align-items:center;gap:0.4rem;}
+.profile-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:#22c55e;animation:blink 1.5s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+/* SECTIONS */
+section{padding:90px 5%;}
+.section-inner{max-width:1200px;margin:0 auto;}
+.section-label{font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--text);letter-spacing:-1px;margin-bottom:0.8rem;}
+.section-sub{font-size:0.97rem;color:var(--text2);line-height:1.6;}
+
+/* ABOUT */
+.about-section{background:var(--bg2);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3rem;}
+.about-text p{color:var(--text2);line-height:1.8;font-size:0.97rem;margin-bottom:1.2rem;}
+.about-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.about-card{border-radius:var(--radius);padding:1.6rem 1.4rem;transition:transform 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;border:1px solid transparent;}
+.about-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-hover);}
+.about-card-1{background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#bfdbfe;}
+.about-card-2{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-color:#bbf7d0;}
+.about-card-3{background:linear-gradient(135deg,#fefce8,#fef9c3);border-color:#fde68a;}
+.about-card-4{background:linear-gradient(135deg,#fdf4ff,#f3e8ff);border-color:#e9d5ff;}
+.about-card-icon-wrap{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1rem;}
+.about-card-1 .about-card-icon-wrap{background:#3b82f6;box-shadow:0 4px 14px rgba(59,130,246,0.35);}
+.about-card-2 .about-card-icon-wrap{background:#22c55e;box-shadow:0 4px 14px rgba(34,197,94,0.35);}
+.about-card-3 .about-card-icon-wrap{background:#f59e0b;box-shadow:0 4px 14px rgba(245,158,11,0.35);}
+.about-card-4 .about-card-icon-wrap{background:#a855f7;box-shadow:0 4px 14px rgba(168,85,247,0.35);}
+.about-card h4{font-size:0.95rem;font-weight:700;color:var(--text);margin-bottom:0.4rem;}
+.about-card p{font-size:0.82rem;color:var(--text2);line-height:1.55;}
+
+/* CERTIFICATIONS STRIP */
+.certs-strip{background:var(--bg3);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2rem 5%;}
+.certs-inner{max-width:1200px;margin:0 auto;}
+.certs-title{font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text2);margin-bottom:1.2rem;}
+.certs-list{display:flex;flex-wrap:wrap;gap:1rem;}
+.cert-badge{background:#fff;border:1px solid var(--border);border-radius:10px;padding:0.7rem 1.2rem;display:flex;align-items:center;gap:0.7rem;font-size:0.84rem;font-weight:600;color:var(--text);box-shadow:var(--shadow);}
+.cert-badge i{color:var(--accent);font-size:1rem;}
+
+/* EXPERIENCE TIMELINE */
+.timeline{position:relative;margin-top:3rem;}
+.timeline::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--accent),transparent);transform:translateX(-50%);}
+.timeline-item{display:grid;grid-template-columns:1fr 60px 1fr;gap:0;margin-bottom:3rem;align-items:start;}
+.timeline-item:nth-child(odd) .timeline-card{grid-column:1;text-align:right;padding-right:3rem;}
+.timeline-item:nth-child(odd) .timeline-dot{grid-column:2;}
+.timeline-item:nth-child(odd) .timeline-empty{grid-column:3;}
+.timeline-item:nth-child(even) .timeline-empty{grid-column:1;}
+.timeline-item:nth-child(even) .timeline-dot{grid-column:2;}
+.timeline-item:nth-child(even) .timeline-card{grid-column:3;padding-left:3rem;}
+.timeline-dot{display:flex;align-items:flex-start;justify-content:center;padding-top:1.2rem;}
+.timeline-dot-inner{width:16px;height:16px;border-radius:50%;background:var(--accent);border:3px solid #fff;box-shadow:0 0 0 3px var(--accent);flex-shrink:0;}
+.timeline-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem;box-shadow:var(--shadow);transition:transform 0.2s,box-shadow 0.2s;}
+.timeline-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);}
+.timeline-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#0ea5e9,#0284c7);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;margin-bottom:1rem;}
+.timeline-item:nth-child(odd) .timeline-card .timeline-icon{margin-left:auto;}
+.exp-role{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.2rem;}
+.exp-company{font-size:0.85rem;color:var(--accent);font-weight:600;margin-bottom:0.2rem;}
+.exp-date{font-size:0.78rem;color:var(--text2);margin-bottom:0.8rem;}
+.exp-desc{font-size:0.88rem;color:var(--text2);line-height:1.65;margin-bottom:0.8rem;}
+.exp-bullets{list-style:none;margin-bottom:0.8rem;}
+.exp-bullets li{font-size:0.84rem;color:var(--text2);padding:0.25rem 0;display:flex;align-items:flex-start;gap:0.5rem;}
+.timeline-item:nth-child(odd) .exp-bullets li{flex-direction:row-reverse;}
+.exp-bullets li::before{content:'▸';color:var(--accent);font-size:0.75rem;margin-top:2px;flex-shrink:0;}
+.tags{display:flex;flex-wrap:wrap;gap:0.45rem;}
+.timeline-item:nth-child(odd) .tags{justify-content:flex-end;}
+.tag{background:var(--bg3);color:var(--text);font-size:0.75rem;font-weight:600;padding:0.25rem 0.75rem;border-radius:50px;border:1px solid var(--border);}
+
+/* FREELANCE */
+.freelance-section{background:var(--bg2);}
+.freelance-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem;}
+.client-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;}
+.client-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);}
+.client-img{width:100%;height:210px;object-fit:cover;display:block;}
+.client-body{padding:1.6rem;}
+.client-title{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:0.2rem;}
+.client-subtitle{font-size:0.83rem;color:var(--accent);font-weight:600;margin-bottom:0.8rem;}
+.client-desc{font-size:0.88rem;color:var(--text2);line-height:1.65;margin-bottom:1rem;}
+.client-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem;}
+.btn-visit{background:var(--dark);color:#fff;padding:0.48rem 1.2rem;border-radius:50px;font-size:0.82rem;font-weight:600;text-decoration:none;transition:opacity 0.2s;}
+.btn-visit:hover{opacity:0.8;}
+
+/* PROJECTS 3-COLUMN GRID */
+.projects-section{background:var(--bg);}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;margin-top:3rem;}
+.project-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform 0.25s,box-shadow 0.25s;}
+.project-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-hover);}
+.project-card-img-wrap{overflow:hidden;}
+.project-card-img{width:100%;height:190px;object-fit:cover;display:block;transition:transform 0.4s;}
+.project-card:hover .project-card-img{transform:scale(1.05);}
+.project-card-body{padding:1.4rem;flex:1;display:flex;flex-direction:column;}
+.project-number{font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:0.4rem;}
+.project-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.6rem;line-height:1.35;}
+.project-desc{font-size:0.86rem;color:var(--text2);line-height:1.68;flex:1;margin-bottom:1rem;}
+.project-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem;}
+.project-links{display:flex;gap:0.6rem;flex-wrap:wrap;margin-top:auto;}
+.btn-github{display:flex;align-items:center;gap:0.4rem;background:var(--bg3);color:var(--text);padding:0.4rem 0.9rem;border-radius:50px;font-size:0.78rem;font-weight:600;text-decoration:none;transition:all 0.2s;border:1px solid var(--border);}
+.btn-github:hover{background:var(--dark);color:#fff;border-color:var(--dark);}
+.btn-live{display:flex;align-items:center;gap:0.4rem;background:var(--accent);color:#fff;padding:0.4rem 0.9rem;border-radius:50px;font-size:0.78rem;font-weight:600;text-decoration:none;transition:all 0.2s;}
+.btn-live:hover{background:var(--accent2);}
+.btn-download{display:flex;align-items:center;gap:0.4rem;background:#7c3aed;color:#fff;padding:0.4rem 0.9rem;border-radius:50px;font-size:0.78rem;font-weight:600;text-decoration:none;transition:all 0.2s;}
+.btn-download:hover{background:#6d28d9;}
+
+/* SKILLS */
+.skills-section{background:var(--bg2);}
+.skills-groups{display:flex;flex-direction:column;gap:2.2rem;margin-top:3rem;}
+.skill-group-title{font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text2);margin-bottom:0.9rem;}
+.skill-pills{display:flex;flex-wrap:wrap;gap:0.7rem;}
+.skill-pill{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.55rem 1.05rem;display:flex;align-items:center;gap:0.6rem;font-size:0.86rem;font-weight:600;color:var(--text);transition:all 0.2s;cursor:default;}
+.skill-pill:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 2px 12px rgba(14,165,233,0.12);}
+.skill-pill img{width:22px;height:22px;object-fit:contain;}
+
+/* CONTACT */
+.contact-section{background:var(--dark);}
+.contact-section .section-label{color:#38bdf8;}
+.contact-section .section-title{color:#fff;}
+.contact-section .section-sub{color:#94a3b8;}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem;align-items:start;}
+.contact-cards{display:flex;flex-direction:column;gap:1rem;}
+.contact-card{background:#1e293b;border:1px solid #334155;border-radius:var(--radius);padding:1.3rem 1.5rem;display:flex;align-items:center;gap:1rem;text-decoration:none;transition:all 0.2s;}
+.contact-card:hover{border-color:#38bdf8;background:#0f2133;}
+.contact-icon{width:44px;height:44px;border-radius:10px;background:#334155;display:flex;align-items:center;justify-content:center;color:#38bdf8;font-size:1.1rem;flex-shrink:0;}
+.contact-info h4{font-size:0.88rem;font-weight:700;color:#fff;margin-bottom:0.2rem;}
+.contact-info p{font-size:0.8rem;color:#94a3b8;}
+.contact-form{display:flex;flex-direction:column;gap:1rem;}
+.form-group input,.form-group textarea{width:100%;background:#1e293b;border:1px solid #334155;border-radius:10px;padding:0.88rem 1.1rem;color:#fff;font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;resize:none;}
+.form-group input::placeholder,.form-group textarea::placeholder{color:#64748b;}
+.form-group input:focus,.form-group textarea:focus{border-color:#38bdf8;}
+.form-group textarea{height:120px;}
+.btn-send{background:#25d366;color:#fff;padding:0.8rem 2rem;border-radius:50px;font-size:0.95rem;font-weight:700;border:none;cursor:pointer;transition:background 0.2s;width:100%;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:0.5rem;}
+.btn-send:hover{background:#1ebe5d;}
+
+/* FOOTER */
+footer{background:#080f1a;border-top:1px solid #1e293b;padding:2rem 5%;}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#fff;}
+.footer-logo span{color:#38bdf8;}
+.footer-copy{font-size:0.8rem;color:#64748b;}
+.footer-socials{display:flex;gap:0.8rem;}
+.footer-socials a{color:#64748b;font-size:1rem;transition:color 0.2s;text-decoration:none;}
+.footer-socials a:hover{color:#38bdf8;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+.reveal-delay-4{transition-delay:0.4s;}
+.reveal-delay-5{transition-delay:0.5s;}
+.reveal-delay-6{transition-delay:0.6s;}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr;text-align:center;}
+  .hero-image-wrap{order:-1;}
+  .hero-btns,.hero-socials,.hero-stats{justify-content:center;}
+  .profile-img-container{width:240px;height:240px;}
+  .profile-img{width:240px;height:240px;}
+  .about-grid{grid-template-columns:1fr;}
+  .freelance-grid{grid-template-columns:1fr;}
+  .projects-grid{grid-template-columns:1fr 1fr;}
+  .timeline::before{left:28px;}
+  .timeline-item{grid-template-columns:56px 1fr!important;}
+  .timeline-item .timeline-card,.timeline-item:nth-child(odd) .timeline-card{grid-column:2!important;text-align:left!important;padding-left:1.5rem!important;padding-right:1rem!important;}
+  .timeline-item .timeline-dot,.timeline-item:nth-child(odd) .timeline-dot{grid-column:1!important;}
+  .timeline-item .timeline-empty,.timeline-item:nth-child(even) .timeline-empty{display:none!important;}
+  .timeline-item:nth-child(odd) .timeline-card .timeline-icon{margin-left:0;}
+  .timeline-item:nth-child(odd) .tags{justify-content:flex-start;}
+  .timeline-item:nth-child(odd) .exp-bullets li{flex-direction:row;}
+  .contact-grid{grid-template-columns:1fr;}
+}
+@media(max-width:640px){
+  .nav-links,.nav-resume{display:none;}
+  .hamburger{display:flex;}
+  section{padding:60px 5%;}
+  .about-cards{grid-template-columns:1fr;}
+  .projects-grid{grid-template-columns:1fr;}
+  .certs-list{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Amith <span>K G</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#freelance">Freelance</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="resume.pdf" target="_blank" class="nav-resume">Resume</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about">About</a>
+  <a href="#experience">Experience</a>
+  <a href="#freelance">Freelance</a>
+  <a href="#projects">Projects</a>
+  <a href="#skills">Skills</a>
+  <a href="#contact">Contact</a>
+  <a href="resume.pdf" target="_blank" style="color:var(--accent);font-weight:700;">Resume</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag">Available for opportunities</div>
+      <h1>Hi, I'm <span>Amith K G</span><br/>I Build Things for<br/>Web & Mobile</h1>
+      <div class="hero-role">Software Developer &nbsp;·&nbsp; Full Stack Developer &nbsp;·&nbsp; App Developer</div>
+      <p class="hero-bio">CS graduate with strong foundations in Full Stack Web Development and hands-on experience with modern AI tools. Passionate about building practical, real-world solutions with clean code and great UX.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-primary">View My Work</a>
+        <a href="resume.pdf" target="_blank" class="btn-outline">Download Resume</a>
+      </div>
+      <div class="hero-socials">
+        <a href="https://github.com/ka-amith007" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/amith-kg" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="mailto:amithka053@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="tel:+917975484273"><i class="fas fa-phone"></i></a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><span>8+</span> Projects</div>
+        <div class="hero-stat"><span>2</span> Internships</div>
+        <div class="hero-stat"><span>2</span> Client Sites</div>
+        <div class="hero-stat">CGPA <span>8.17</span></div>
+      </div>
+    </div>
+    <div class="hero-image-wrap reveal">
+      <div class="profile-img-container">
+        <img src="profile.jpg" alt="Amith K G" class="profile-img"/>
+        <div class="profile-badge">🟢 Open to Work</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="section-inner">
+    <div class="section-label">About Me</div>
+    <h2 class="section-title">Who I Am</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm a Computer Science graduate (B.E. CSE, CGPA 8.17) with a passion for building software that solves real problems. I've worked across the full stack — designing interfaces, building APIs, integrating databases, and deploying production-ready apps.</p>
+        <p>During my internships and freelance work, I've delivered complete projects from design to deployment. Comfortable with the MERN stack, Flutter mobile development, and Python-based ML systems.</p>
+        <p>I write clean code, adapt quickly to new technologies, and love collaborating on products that matter. I'm also experienced with modern AI tools and frameworks, using them to build faster and smarter.</p>
+      </div>
+      <div class="about-cards">
+        <div class="about-card about-card-1 reveal reveal-delay-1">
+          <div class="about-card-icon-wrap">🖥️</div>
+          <h4>Full Stack Development</h4>
+          <p>MERN stack — MongoDB, Express, React, Node.js — end to end</p>
+        </div>
+        <div class="about-card about-card-2 reveal reveal-delay-2">
+          <div class="about-card-icon-wrap">📱</div>
+          <h4>Mobile App Development</h4>
+          <p>Cross-platform apps with Flutter & Dart for iOS & Android</p>
+        </div>
+        <div class="about-card about-card-3 reveal reveal-delay-3">
+          <div class="about-card-icon-wrap">☁️</div>
+          <h4>Cloud Deployment</h4>
+          <p>Netlify, Vercel, Render, Firebase — from build to live</p>
+        </div>
+        <div class="about-card about-card-4 reveal reveal-delay-4">
+          <div class="about-card-icon-wrap">🗄️</div>
+          <h4>Database Management</h4>
+          <p>MongoDB, PostgreSQL, SQLite, Supabase, MySQL</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS STRIP -->
+<div class="certs-strip">
+  <div class="certs-inner">
+    <div class="certs-title">Certifications & Achievements</div>
+    <div class="certs-list">
+      <div class="cert-badge"><i class="fas fa-certificate"></i> Full Stack Web Dev (MERN) — SuprMentr Technologies & VTU, Belagavi</div>
+      <div class="cert-badge"><i class="fas fa-robot"></i> Applied AI: Practical Implementations — TechSaksham (Microsoft & SAP)</div>
+      <div class="cert-badge"><i class="fab fa-google"></i> 5-Day AI Agents Intensive — Kaggle & Google</div>
+      <div class="cert-badge"><i class="fas fa-graduation-cap"></i> B.E. Computer Science — CGPA 8.17</div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE TIMELINE -->
+<section id="experience" style="background:var(--bg);">
+  <div class="section-inner">
+    <div class="section-label">Work History</div>
+    <h2 class="section-title">Professional Experience</h2>
+    <p class="section-sub">My Internship Journey</p>
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-card">
+          <div class="timeline-icon"><i class="fas fa-code"></i></div>
+          <div class="exp-role">Full Stack Web Development Intern (MERN)</div>
+          <div class="exp-company">SuprMentr Technologies Pvt Ltd</div>
+          <div class="exp-date">Feb 1, 2026 – May 15, 2026 &nbsp;·&nbsp; 15 Weeks &nbsp;·&nbsp; In partnership with VTU, Belagavi</div>
+          <p class="exp-desc">Completed a 15-week structured Full Stack Web Development internship building full-stack applications using the MERN stack. Demonstrated exceptional commitment, creativity, and problem-solving abilities throughout.</p>
+          <ul class="exp-bullets">
+            <li>Built hands-on full-stack applications using MongoDB, Express.js, React.js, and Node.js</li>
+            <li>Completed a comprehensive capstone project showcasing technical proficiency</li>
+            <li>Received commendation for outstanding contributions and performance</li>
+          </ul>
+          <div class="tags"><span class="tag">MongoDB</span><span class="tag">Express.js</span><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Full Stack</span><span class="tag">VTU</span></div>
+        </div>
+        <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+        <div class="timeline-empty"></div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-empty"></div>
+        <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
+        <div class="timeline-card">
+          <div class="timeline-icon"><i class="fas fa-brain"></i></div>
+          <div class="exp-role">Machine Learning Intern</div>
+          <div class="exp-company">SkillCraft Technology</div>
+          <div class="exp-date">Aug 15, 2025 – Sep 14, 2025 &nbsp;·&nbsp; 1 Month &nbsp;·&nbsp; MSME Certified &nbsp;·&nbsp; ID: SCT/AUG25/7209</div>
+          <p class="exp-desc">Successfully completed a 1-month Machine Learning internship at SkillCraft Technology. Developed ML models and algorithms with a focus on data preprocessing and model performance optimization.</p>
+          <ul class="exp-bullets">
+            <li>Built predictive models using Python and scikit-learn on real datasets</li>
+            <li>Implemented data preprocessing pipelines for clean model input</li>
+            <li>Optimized model performance through hyperparameter tuning techniques</li>
+          </ul>
+          <div class="tags"><span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">Machine Learning</span><span class="tag">Data Processing</span><span class="tag">MSME Certified</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FREELANCE -->
+<section class="freelance-section" id="freelance">
+  <div class="section-inner">
+    <div class="section-label">Client Work</div>
+    <h2 class="section-title">Freelance Projects</h2>
+    <p class="section-sub">Real websites designed, built, and deployed for clients</p>
+    <div class="freelance-grid">
+      <div class="client-card reveal">
+        <img class="client-img" src="banashree.jpg" alt="Banashree Organics — Vermicompost"/>
+        <div class="client-body">
+          <div class="client-title">Banashree Organics</div>
+          <div class="client-subtitle">Premium Organic Vermicompost — Karnataka</div>
+          <p class="client-desc">Designed and developed a complete business website for a premium organic vermicompost brand in Karnataka. Showcases their products, sustainable farming mission, and contact details — helping them reach farmers and customers online.</p>
+          <div class="client-footer">
+            <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Vercel</span></div>
+            <a href="https://banashree-organics.vercel.app/" target="_blank" class="btn-visit">Visit Site →</a>
+          </div>
+        </div>
+      </div>
+      <div class="client-card reveal reveal-delay-1">
+        <img class="client-img" src="areca.jpg" alt="Pattalli Areca Mill"/>
+        <div class="client-body">
+          <div class="client-title">Pattalli Areca Mill</div>
+          <div class="client-subtitle">Modern Areca Nut Processing — Karnataka</div>
+          <p class="client-desc">Built a professional website for a modern areca nut processing mill in Karnataka. Covers their full range of services — peeling, cutting, drying, and grading — with a clean layout built for farmer and business audiences. Fully responsive.</p>
+          <div class="client-footer">
+            <div class="tags"><span class="tag">React</span><span class="tag">Tailwind CSS</span><span class="tag">Vercel</span></div>
+            <a href="https://pattalli-areca-mill.vercel.app/" target="_blank" class="btn-visit">Visit Site →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects-section" id="projects">
+  <div class="section-inner">
+    <div class="section-label">What I've Built</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+
+      <!-- MedVerify -->
+      <div class="project-card reveal">
+        <div class="project-card-img-wrap">
+          <img class="project-card-img" src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=600&q=80&fit=crop" alt="MedVerify AI"/>
+        </div>
+        <div class="project-card-body">
+          <div class="project-number">01 — Featured</div>
+          <div class="project-title">MedVerify – AI Medicine Verification App</div>
+          <p class="project-desc">Offline-first Flutter app that scans medicine barcodes via camera or manual input and verifies authenticity against a bundled SQLite database with AI-assisted fallback through Groq AI. Features confidence scoring (GENUINE / SUSPICIOUS / FAKE), local scan history, alternative suggestions, and guest/registered user sessions — all without internet.</p>
+          <div class="project-tags"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">SQLite</span><span class="tag">Groq AI</span><span class="tag">OCR</span><span class="tag">Offline-First</span></div>
+          <div class="project-links">
+            <a href="https://drive.google.com/drive/folders/1N5y7onF1U8fAdd9eEYWmwhuAAgklpbQC?usp=sharing" target="_blank" class="btn-download"><i class="fas fa-download"></i> Download APK</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SecureBank -->
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-card-img-wrap">
+          <img class="project-card-img" src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80&fit=crop" alt="SecureBank"/>
+        </div>
+        <div class="project-card-body">
+          <div class="project-number">02</div>
+          <div class="project-title">SecureBank: Full-Stack Banking Application</div>
+          <p class="project-desc">Secure banking platform featuring JWT-based auth, MPIN/OTP multi-factor authentication, QR code transfers, voice banking, and geographic login history tracking. Built with Flask REST APIs and PostgreSQL, deployed on Vercel with gunicorn as the WSGI server.</p>
+          <div class="project-tags"><span class="tag">Flask</span><span class="tag">PostgreSQL</span><span class="tag">JavaScript</span><span class="tag">JWT Auth</span><span class="tag">QR Transfers</span><span class="tag">Vercel</span></div>
+          <div class="project-links">
+            <a href="https://github.com/ka-amith007/bank" target="_blank" class="btn-github"><i class="fab fa-github"></i> Code</a>
+            <a href="https://bank-01.vercel.app/" target="_blank" class="btn-live"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multiple Disease -->
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-card-img-wrap">
+          <img class="project-card-img" src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80&fit=crop" alt="Multiple Disease Prediction"/>
+        </div>
+        <div class="project-card-body">
+          <div class="project-number">03</div>
+          <div class="project-title">Multiple Disease Prediction System</div>
+          <p class="project-desc">Streamlit web app predicting 7 diseases — Diabetes, Heart Disease, Parkinson's, Liver, Hepatitis, and Lung Cancer — using ML models (SVM, Random Forest, XGBoost). Symptom-based general disease prediction across 132 symptoms with ~95% accuracy. Trained on UCI ML Repository and Kaggle datasets.</p>
+          <div class="project-tags"><span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">XGBoost</span><span class="tag">SVM</span><span class="tag">Random Forest</span><span class="tag">Machine Learning</span></div>
+          <div class="project-links">
+            <a href="https://github.com/ka-amith007/Multiple-Disease-Prediction-Web-Application-using-machine-learning.git" target="_blank" class="btn-github"><i class="fab fa-github"></i> Code</a>
+            <a href="https://multiple-disease-prediction-web-application-using-machine.streamlit.app/" target="_blank" class="btn-live"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Route Optimizer -->
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-card-img-wrap">
+          <img class="project-card-img" src="route-optimizer.png" alt="AI Route Optimizer" style="object-position:center;"/>
+        </div>
+        <div class="project-card-body">
+          <div class="project-number">04</div>
+          <div class="project-title">AI Route Optimizer for Highway Construction</div>
+          <p class="project-desc">Advanced AI-powered system using deep learning segmentation for satellite imagery analysis, GIS integration, and intelligent route optimization algorithms. Includes a Streamlit dashboard for end-to-end highway construction planning with visual heatmaps and path scoring.</p>
+          <div class="project-tags"><span class="tag">Python</span><span class="tag">Deep Learning</span><span class="tag">GIS</span><span class="tag">Streamlit</span><span class="tag">Computer Vision</span><span class="tag">Satellite Imagery</span></div>
+          <div class="project-links">
+            <a href="https://github.com/ka-amith007" target="_blank" class="btn-github"><i class="fab fa-github"></i> Code</a>
+            <a href="https://ai-route-optimizer.onrender.com/" target="_blank" class="btn-live"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Crop Recommendation -->
+      <div class="project-card reveal reveal-delay-4">
+        <div class="project-card-img-wrap">
+          <img class="project-card-img" src="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?w=600&q=80&fit=crop" alt="Crop Recommendation"/>
+        </div>
+        <div class="project-card-body">
+          <div class="project-number">05</div>
+          <div class="project-title">Crop Recommendation System</div>
+          <p class="project-desc">Smart agriculture app recommending optimal crops based on soil nutrients (N, P, K), temperature, humidity, pH level, and rainfall data using trained ML classification models. Helps farmers make data-driven decisions for better yield and sustainability.</p>
+          <div class="project-tags"><span class="tag">Python</span><span class="tag">Machine Learning</span><span class="tag">Streamlit</span><span class="tag">Data Analysis</span><span class="tag">Agriculture Tech</span></div>
+          <div class="project-links">
+            <a href="https://github.com/ka-amith007/Crop-Recommendation-System.git" target="_blank" class="btn-github"><i class="fab fa-github"></i> Code</a>
+            <a href="https://crop-recommendation-system-xvequzasfs6vg9tfnzanah.streamlit.app/" target="_blank" class="btn-live"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weather Dashboard -->
+      <div class="project-card reveal reveal-delay-5">
+        <div class="project-card-img-wrap">
+          <img class="project-card-img" src="https://images.unsplash.com/photo-1592210454359-9043f067919b?w=600&q=80&fit=crop" alt="Weather Dashboard"/>
+        </div>
+        <div class="project-card-body">
+          <div class="project-number">06</div>
+          <div class="project-title">Weather Dashboard</div>
+          <p class="project-desc">Real-time weather application displaying current conditions, hourly forecasts, and 7-day weather data using OpenWeather API. Features location-based lookup, temperature graphs, humidity, wind speed, UV index, and a clean fully responsive UI.</p>
+          <div class="project-tags"><span class="tag">JavaScript</span><span class="tag">OpenWeather API</span><span class="tag">HTML/CSS</span><span class="tag">API Integration</span><span class="tag">Netlify</span></div>
+          <div class="project-links">
+            <a href="https://github.com/ka-amith007/weather-app.git" target="_blank" class="btn-github"><i class="fab fa-github"></i> Code</a>
+            <a href="https://weather-app-4002-50-82.netlify.app/" target="_blank" class="btn-live"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="section-inner">
+    <div class="section-label">Tech Stack</div>
+    <h2 class="section-title">Technologies I Work With</h2>
+    <div class="skills-groups">
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Programming Languages</div>
+        <div class="skill-pills">
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS"/> JavaScript</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"/> Python</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" alt="Dart"/> Dart</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java"/> Java</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C"/> C</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++"/> C++</div>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Frontend</div>
+        <div class="skill-pills">
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"/> React</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5"/> HTML5</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3"/> CSS3</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind"/> Tailwind CSS</div>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Mobile</div>
+        <div class="skill-pills">
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter"/> Flutter</div>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Backend & APIs</div>
+        <div class="skill-pills">
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js"/> Node.js</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express"/> Express.js</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" alt="Flask"/> Flask</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase"/> Firebase</div>
+          <div class="skill-pill">🔗 REST APIs</div>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Databases</div>
+        <div class="skill-pills">
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB"/> MongoDB</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL"/> PostgreSQL</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL"/> MySQL</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" alt="Supabase"/> Supabase</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" alt="SQLite"/> SQLite</div>
+          <div class="skill-pill">🔍 DB Browser SQLite</div>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Deployment & DevOps</div>
+        <div class="skill-pills">
+          <div class="skill-pill">🌐 Netlify</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg" alt="Vercel"/> Vercel</div>
+          <div class="skill-pill">🚀 Render</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub"/> GitHub Pages</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub"/> GitHub</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git"/> Git</div>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Tools & Platforms</div>
+        <div class="skill-pills">
+          <div class="skill-pill">📊 Streamlit</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" alt="OpenCV"/> OpenCV</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code"/> VS Code</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" alt="Postman"/> Postman</div>
+          <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma"/> Figma</div>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">AI Tools I Use</div>
+        <div class="skill-pills">
+          <div class="skill-pill">🤖 Claude AI</div>
+          <div class="skill-pill">💬 ChatGPT</div>
+          <div class="skill-pill">🌊 Cursor AI</div>
+          <div class="skill-pill">✨ Gemini</div>
+          <div class="skill-pill">🚀 GitHub Copilot</div>
+          <div class="skill-pill">🎨 Lovable</div>
+          <div class="skill-pill">⚡ Bolt.new</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-inner">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Let's Connect</h2>
+    <p class="section-sub">Open to full-time roles, freelance projects, and collaborations. Let's build something together.</p>
+    <div class="contact-grid">
+      <div class="contact-cards">
+        <a href="mailto:amithka053@gmail.com" class="contact-card reveal">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div class="contact-info"><h4>Email</h4><p>amithka053@gmail.com</p></div>
+        </a>
+        <a href="tel:+917975484273" class="contact-card reveal reveal-delay-1">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <div class="contact-info"><h4>Phone</h4><p>+91 79754 84273</p></div>
+        </a>
+        <a href="https://www.linkedin.com/in/amith-kg" target="_blank" class="contact-card reveal reveal-delay-2">
+          <div class="contact-icon"><i class="fab fa-linkedin-in"></i></div>
+          <div class="contact-info"><h4>LinkedIn</h4><p>linkedin.com/in/amith-kg</p></div>
+        </a>
+        <a href="https://wa.me/917975484273" target="_blank" class="contact-card reveal reveal-delay-3">
+          <div class="contact-icon" style="background:#25d366;"><i class="fab fa-whatsapp" style="color:#fff;"></i></div>
+          <div class="contact-info"><h4>WhatsApp</h4><p>+91 79754 84273</p></div>
+        </a>
+        <a href="https://github.com/ka-amith007" target="_blank" class="contact-card reveal reveal-delay-3">
+          <div class="contact-icon"><i class="fab fa-github"></i></div>
+          <div class="contact-info"><h4>GitHub</h4><p>github.com/ka-amith007</p></div>
+        </a>
+      </div>
+      <div class="contact-form reveal">
+        <div class="form-group">
+          <input type="text" id="from_name" placeholder="Your Name"/>
+        </div>
+        <div class="form-group">
+          <input type="email" id="from_email" placeholder="Your Email (optional)"/>
+        </div>
+        <div class="form-group">
+          <textarea id="message" placeholder="Your Message"></textarea>
+        </div>
+        <button class="btn-send" id="send-btn" onclick="sendToWhatsApp()">
+          <span id="btn-text">&#xf232; &nbsp;Send via WhatsApp</span>
+        </button>
+        <div id="form-status" style="display:none;text-align:center;font-size:0.88rem;font-weight:600;padding:0.8rem;border-radius:10px;margin-top:0.5rem;"></div>
+        <p style="text-align:center;font-size:0.78rem;color:#64748b;margin-top:0.6rem;">Opens WhatsApp with your message pre-filled &rarr; just tap Send</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Amith <span>K G</span></div>
+    <div class="footer-copy">© 2026 Amith K G. All rights reserved.</div>
+    <div class="footer-socials">
+      <a href="https://github.com/ka-amith007" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/amith-kg" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="mailto:amithka053@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="resume.pdf" target="_blank"><i class="fas fa-file-pdf"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ---- WHATSAPP CONTACT FORM ----
+function sendToWhatsApp() {
+  const name    = document.getElementById('from_name').value.trim();
+  const email   = document.getElementById('from_email').value.trim();
+  const message = document.getElementById('message').value.trim();
+  const status  = document.getElementById('form-status');
+
+  if (!name || !message) {
+    status.style.display = 'block';
+    status.style.background = '#7f1d1d';
+    status.style.color = '#fca5a5';
+    status.textContent = '⚠️ Please enter your name and message.';
+    return;
+  }
+
+  status.style.display = 'none';
+
+  let text = 'Hi Amith! I found you on your portfolio.\n\n';
+  text += '👤 Name: ' + name + '\n';
+  if (email) text += '📧 Email: ' + email + '\n';
+  text += '\n💬 Message:\n' + message;
+
+  const phone = '917975484273'; // India +91
+  const url   = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(text);
+
+  window.open(url, '_blank');
+
+  status.style.display = 'block';
+  status.style.background = '#14532d';
+  status.style.color = '#86efac';
+  status.textContent = '✅ WhatsApp opened! Just tap Send to reach me.';
+
+  document.getElementById('from_name').value = '';
+  document.getElementById('from_email').value = '';
+  document.getElementById('message').value = '';
+}
+
+const cursor=document.getElementById('cursor');
+const ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.left=mx+'px';cursor.style.top=my+'px';
+});
+function animateRing(){
+  rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>20));
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobile-menu');
+hamburger.addEventListener('click',()=>mobileMenu.classList.toggle('open'));
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mobileMenu.classList.remove('open')));
+const reveals=document.querySelectorAll('.reveal');
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.08});
+reveals.forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
